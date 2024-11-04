@@ -1,0 +1,573 @@
+<html>
+ <head>
+  <title>
+   Menu
+  </title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <style>
+   body {
+            font-family: Arial, sans-serif;
+            background-color: #333;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #444;
+            padding: 20px;
+        }
+        .header, .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #222;
+            padding: 10px;
+        }
+        .header img, .footer img {
+            width: 100px;
+            height: auto;
+        }
+        .menu-section {
+            background-color: #000;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .menu-section h2 {
+            background-color: #ffcc00;
+            color: #000;
+            padding: 10px;
+            margin: 0 0 20px 0;
+            text-align: center;
+        }
+        .menu-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        .menu-section ul li {
+            padding: 5px 0;
+        }
+        .menu-section ul li span {
+            float: right;
+        }
+        .images-row {
+            display: flex;
+            overflow-x: auto;
+        }
+        .images-row img {
+            width: 100px;
+            height: auto;
+            margin: 0 5px;
+        }
+
+        #map {
+            height: 500px;
+        }
+
+        /* Menyesuaikan gaya popup */
+    .popup-container {
+      width: 50vw; /* Setengah layar */
+      max-height: 50vh; /* Setengah tinggi layar */
+      overflow-y: auto; /* Agar bisa di-scroll jika konten melebihi */
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+    }
+    .popup-header {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .popup-rating {
+      font-size: 18px;
+      color: #ffc107;
+      margin-bottom: 8px;
+    }
+    .popup-category {
+      font-size: 16px;
+      color: #777;
+      margin-bottom: 12px;
+    }
+    .popup-image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      margin-bottom: 12px;
+    }
+    .popup-address,
+    .popup-hours,
+    .popup-contact {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    .marker-tooltip {
+      background-color: #333;
+      color: white;
+      font-weight: bold;
+      padding: 5px 10px;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+
+    .copyright {
+        background: #333;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        align-content: center;
+        height: 50px;
+    }
+  </style>
+ </head>
+      <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #121826;
+            font-family: Arial, sans-serif;
+        }
+        .header {
+            background-color: #121826;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .header h1 {
+            font-size: 48px;
+            font-weight: bold;
+            margin: 0;
+        }
+        .header h1 span {
+            font-style: italic;
+        }
+        .header h2 {
+            font-size: 36px;
+            color: #6b4a2b;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Selamat Datang Di <span>gerobak lomie</span></h1>
+    </div>
+</body>
+
+ <body>
+  <div class="container">
+    <div id="map" class="h-96 w-full mt-8 mx-auto"></div>
+   <div class="header">
+    <div class="images-row">
+     <img alt="Dish 1" height="100" src="https://storage.googleapis.com/a1aa/image/YmcuEUiPykruAdQFzLt6wzSivmk4gN3h8xo3fbIVTzUf9UsTA.jpg" width="100"/>
+     <img alt="Dish 2" height="100" src="https://storage.googleapis.com/a1aa/image/ajKGMdWxjeTWOi4lMdypysoGv78p6ea2rsViAjXHoLTt9UsTA.jpg" width="100"/>
+     <img alt="Dish 3" height="100" src="https://storage.googleapis.com/a1aa/image/aHnqSzbjd7pwNphpRl9nwHswZdolc6D5spfn6N6svvB2eUsTA.jpg" width="100"/>
+     <img alt="Dish 4" height="100" src="https://storage.googleapis.com/a1aa/image/US1kcDvqpk7fT6W8IfOhNiPq7zidj4nJfeFta31Ch2613TxOB.jpg" width="100"/>
+     <img alt="Dish 5" height="100" src="https://storage.googleapis.com/a1aa/image/FHZtWw48aD7iOJ2XmBpg8hT6nl7OI653ct5tHtL7kMicPF7E.jpg" width="100"/>
+     <img alt="Dish 6" height="100" src="https://storage.googleapis.com/a1aa/image/YktdxheDCa17WKZcCreLF8Q2E4RuImyQy2FvggH0FUei7pYnA.jpg" width="100"/>
+     <img alt="Dish 7" height="100" src="https://storage.googleapis.com/a1aa/image/fkgEg9BTaP14dCrhDLF7ioQ7L2P7YHJLY288o94YYVm3eUsTA.jpg" width="100"/>
+    </div>
+   </div>
+   <div class="menu-section">
+    <h2>
+     MAKANAN
+    </h2>
+    <ul>
+     <li>
+      Mie Pangsit Lomie
+      <span>
+       16K
+      </span>
+     </li>
+     <li>
+      Mie Pangsit Bakso Besar
+      <span>
+       26K
+      </span>
+     </li>
+     <li>
+      Mie Pangsit Bakso Biasa
+      <span>
+       23K
+      </span>
+     </li>
+     <li>
+      Mie Kering / Titi
+      <span>
+       30K
+      </span>
+     </li>
+     <li>
+      Mie Kering / Titi Sea Food
+      <span>
+       40K
+      </span>
+     </li>
+     <li>
+      Mie Goreng Jakarta
+      <span>
+       32K
+      </span>
+     </li>
+     <li>
+      Mie Goreng Jakarta Spesial
+      <span>
+       37K
+      </span>
+     </li>
+     <li>
+      Mie Goreng Sea Food Jakarta
+      <span>
+       37K
+      </span>
+     </li>
+     <li>
+      Mie Goreng Hokian
+      <span>
+       32K
+      </span>
+     </li>
+     <li>
+      Mie Goreng Hokkian Spesial
+      <span>
+       37K
+      </span>
+     </li>
+     <li>
+      Mie Goreng Hokkian Sea Food
+      <span>
+       40K
+      </span>
+     </li>
+     <li>
+      Mie Kuah
+      <span>
+       32K
+      </span>
+     </li>
+     <li>
+      Mie Kuah Sea Food
+      <span>
+       40K
+      </span>
+     </li>
+     <li>
+      Bihun Goreng / Kuah
+      <span>
+       32K
+      </span>
+     </li>
+     <li>
+      Bihun Goreng / Kuah Sea Food
+      <span>
+       40K
+      </span>
+     </li>
+     <li>
+      Cap Cay Goreng / Kuah
+      <span>
+       33K
+      </span>
+     </li>
+     <li>
+      Cap Cay Goreng / Kuah Sea Food
+      <span>
+       40K
+      </span>
+     </li>
+     <li>
+      Nasi Goreng Jakarta
+      <span>
+       26K
+      </span>
+     </li>
+     <li>
+      Nasi Goreng Jakarta Spesial
+      <span>
+       30K
+      </span>
+     </li>
+     <li>
+      Nasi Goreng Jakarta Sea Food
+      <span>
+       36K
+      </span>
+     </li>
+     <li>
+      Nasi Goreng Merah
+      <span>
+       26K
+      </span>
+     </li>
+     <li>
+      Nasi Goreng Merah Spesial
+      <span>
+       30K
+      </span>
+     </li>
+     <li>
+      Nasi Goreng Merah Sea Food
+      <span>
+       36K
+      </span>
+     </li>
+     <li>
+      Nasi Goreng Putih
+      <span>
+       26K
+      </span>
+     </li>
+     <li>
+      Nasi Goreng Spesial
+      <span>
+       30K
+      </span>
+     </li>
+     <li>
+      Nasi Goreng Sea Food
+      <span>
+       36K
+      </span>
+     </li>
+     <li>
+      Ayam Penyet Kremes + Nasi
+      <span>
+       30K
+      </span>
+     </li>
+     <li>
+      Ayam Bakar Kecap + Nasi
+      <span>
+       26K
+      </span>
+     </li>
+     <li>
+      Bakso
+      <span>
+       21K
+      </span>
+     </li>
+     <li>
+      Nasi Putih
+      <span>
+       5K
+      </span>
+     </li>
+     <li>
+      Telur Mata Sapi / Telur Dadar
+      <span>
+       4K
+      </span>
+     </li>
+    </ul>
+   </div>
+   <div class="menu-section">
+    <h2>
+     MINUMAN
+    </h2>
+    <ul>
+     <li>
+      Air Mineral Botol
+      <span>
+       5K
+      </span>
+     </li>
+     <li>
+      Teh Hangat
+      <span>
+       5K
+      </span>
+     </li>
+     <li>
+      Es Teh Manis
+      <span>
+       5K
+      </span>
+     </li>
+     <li>
+      Es Lemon Tea
+      <span>
+       15K
+      </span>
+     </li>
+     <li>
+      Es Cappucino
+      <span>
+       10K
+      </span>
+     </li>
+     <li>
+      Es Soda Gembira
+      <span>
+       15K
+      </span>
+     </li>
+     <li>
+      Es Mojito
+      <span>
+       15K
+      </span>
+     </li>
+     <li>
+      Es Jeruk
+      <span>
+       15K
+      </span>
+     </li>
+     <li>
+      Jus Sirsak
+      <span>
+       15K
+      </span>
+     </li>
+     <li>
+      Jus Apel
+      <span>
+       15K
+      </span>
+     </li>
+     <li>
+      Jus Avocad
+      <span>
+       20K
+      </span>
+     </li>
+     <li>
+      Jus Mangga
+      <span>
+       20K
+      </span>
+     </li>
+     <li>
+      Green Tea
+      <span>
+       15K
+      </span>
+     </li>
+     <li>
+      Thai Tea
+      <span>
+       15K
+      </span>
+     </li>
+     <li>
+      Gelas Es Batu
+      <span>
+       1K
+      </span>
+     </li>
+    </ul>
+   </div>
+   <div class="footer">
+    <div class="images-row">
+     <img alt="Dish 8" height="100" src="https://storage.googleapis.com/a1aa/image/j42mLO0GkubhBR04KbFAZQltffSAritVzYMSXbzqQuN69UsTA.jpg" width="100"/>
+     <img alt="Dish 9" height="100" src="https://storage.googleapis.com/a1aa/image/rABOiVE1mfyRFCD3ABH6LyNPDBcgYl0eVhWkM10bowc49UsTA.jpg" width="100"/>
+     <img alt="Dish 10" height="100" src="https://storage.googleapis.com/a1aa/image/XlJhIdrDJMrbCh29xyIbDImZt8zdYqPjJHfeSJzit6Fr9UsTA.jpg" width="100"/>
+     <img alt="Dish 11" height="100" src="https://storage.googleapis.com/a1aa/image/YKihEDttbeRIZaCZsznyjhJBoUEsSyeQTIE9pIbOpPHz9UsTA.jpg" width="100"/>
+     <img alt="Dish 12" height="100" src="https://storage.googleapis.com/a1aa/image/7uJBx4kesLSpHiB8d1QV4ifRp8L0sKaZfZznsWfTzHfjunidC.jpg" width="100"/>
+     <img alt="Dish 13" height="100" src="https://storage.googleapis.com/a1aa/image/ze6uBgfmfQaXfSv5ziVfdtMLtn1XJ4Y7NeJrwLAnyLoDgPF7E.jpg" width="100"/>
+     <img alt="Dish 14" height="100" src="https://storage.googleapis.com/a1aa/image/q4IsXbCZGiLPMhnBDEx1SOPGn1IUz6f9skyIUDKaJyH7eUsTA.jpg" width="100"/>
+    </div>
+   </div>
+  </div>
+    <footer>
+        <div class="copyright">
+            <p>&copy; Gerobak Lomie | M.Caesar Afgar semua hak dilindungi.</p>
+        </div>
+
+<body>
+    <div class="container">
+        <br><h1>Saran</h1><br>
+        <textarea></textarea>
+        <br><br><button>Kirim</button><br><br>
+    </div>
+</body>
+
+
+    </footer>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const map = L.map("map").setView([-6.1139821,120.4592771], 18);
+
+        const umkmData = {
+          name: "gerobak lomie selayar",
+          rating: "4.5",
+          reviews: 50,
+          category: "warung makan",
+          buka: "Buka · Tutup pukul 10:00-23:00 🔻",
+          alamat:
+            "Jl. soekarno hatta, Benteng, Kec. Benteng, Sulawesi Selatan 92812",
+          phone: "081224282103",
+          coords: [-6.1139821,120.4592771],
+          imageUrl: "./logo lomie.jpg",
+        };
+
+        const marker = L.marker(umkmData.coords).addTo(map);
+
+        // Menambahkan tooltip permanen pada marker
+        marker.bindTooltip(umkmData.name, {  
+          permanent: true,
+          direction: "top",
+          className: "marker-tooltip",
+        });
+
+        marker.bindPopup(`
+                <div class="popup-container">
+                    <div class="popup-header">${umkmData.name}</div>
+                    <div class="popup-rating">⭐ ${umkmData.rating} <span>(${umkmData.reviews})</span></div>
+                    <div class="popup-category">${umkmData.category}</div>
+                    <img src="${umkmData.imageUrl}" alt="${umkmData.name}" class="popup-image" />
+                    <div class="popup-address"><i class="fas fa-map-marker-alt"></i> ${umkmData.alamat}</div>
+                    <div class="popup-hours"><i class="fas fa-clock"></i> <span>${umkmData.buka}</span></div>
+                    <div class="popup-contact"><i class="fas fa-phone-alt"></i> ${umkmData.phone}</div>
+                </div>
+            `);
+
+        fetch("./jalanBentengAnjay.geojson")
+          .then((response) => response.json())
+          .then((geojsonData) => {
+            L.geoJSON(geojsonData, {
+              style: {
+                color: "#f0f0f0",
+                weight: 3,
+                opacity: 1,
+              },
+            }).addTo(map);
+          })
+          .catch((error) =>
+            console.error("Error loading jalan GeoJSON:", error)
+          );
+
+        fetch("./kecamatanBenteng.geojson")
+          .then((response) => response.json())
+          .then((geojsonData) => {
+            L.geoJSON(geojsonData, {
+              style: {
+                color: "#333",
+                weight: 1.5,
+                opacity: 0.8,
+                fillColor: "#333",
+                fillOpacity: 0.1,
+              },
+            }).addTo(map);
+          })
+          .catch((error) =>
+            console.error("Error loading kecamatanBenteng GeoJSON:", error)
+          );
+      });
+    </script>
+    <script
+      src="https://kit.fontawesome.com/a076d05399.js"
+      crossorigin="anonymous"
+    ></script>
+</body>
+</html>
